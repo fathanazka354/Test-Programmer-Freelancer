@@ -13,18 +13,20 @@ class ErrorSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(userBloc.state.errorMessage),
-        const SizedBox(
-          height: 10,
-        ),
-        ElevatedButton(
-            onPressed: onPressed,
-            child: const Text('Reload'))
-      ],
+    return SizedBox(width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(userBloc.state.errorMessage),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+              onPressed: onPressed,
+              child: const Text('Reload'))
+        ],
+      ),
     );
   }
 }

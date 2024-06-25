@@ -41,9 +41,11 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     isLoadMore = true;
     await getUserData(GetUserDataParam(page: currentPage)).then((value) => value
             .fold(
-                (l) => emit(state.copyWith(
+                (l) {
+                  isLoadMore = false;
+                  emit(state.copyWith(
                     errorMessage: l.message,
-                    status: BlocStatus.failedMore)), (r) {
+                    status: BlocStatus.failedMore));}, (r) {
           if (r.page > r.totalPages) {
             isLoadMore = false;
             emit(state.copyWith(status: BlocStatus.empty));

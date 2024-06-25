@@ -24,44 +24,48 @@ class SuccessSection extends StatelessWidget {
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (userBloc.state.status == BlocStatus.failed &&
+        } else if (userBloc.state.status == BlocStatus.failedMore &&
             userBloc.state.users.length == index) {
-          ErrorSection(
+        return  ErrorSection(
             userBloc: userBloc,
             onPressed: () => userBloc
-              ..add(FetchUserDataMore())
+              ..add(FetchUserData())
               ..isLoadMore = false,
           );
+        } else {
+          print(
+              'object: ${userBloc.state.status == BlocStatus.failedMore} || ${userBloc.state.users.length} == $index || ${userBloc.isLoadMore}');
+          final data = userBloc.state.users[index];
+          return Card(
+              child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      image: DecorationImage(image: NetworkImage(data.avatar))),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${data.firstName} ${data.lastName}'),
+                    Text(data.email),
+                  ],
+                ),
+              ],
+            ),
+          ));
         }
-        final data = userBloc.state.users[index];
-        return Card(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    image: DecorationImage(image: NetworkImage(data.avatar))),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('${data.firstName} ${data.lastName}'),
-                  Text(data.email),
-                ],
-              ),
-            ],
-          ),
-        ));
       },
-      itemCount:
-          userBloc.isLoadMore || userBloc.state.status == BlocStatus.failedMore
+      itemCount: userBloc.isLoadMore
+          ? userBloc.state.users.length + 1
+          : userBloc.state.status == BlocStatus.failedMore
               ? userBloc.state.users.length + 1
               : userBloc.state.users.length,
     );
