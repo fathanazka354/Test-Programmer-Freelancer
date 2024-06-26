@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:test_selection_app/presentation/bloc/user_list_bloc.dart';
+import 'package:test_selection_app/features/list_user/bloc/user_list_bloc.dart';
 
 class ErrorSection extends StatelessWidget {
   const ErrorSection({

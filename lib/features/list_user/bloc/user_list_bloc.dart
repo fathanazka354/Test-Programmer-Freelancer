@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:test_selection_app/domain/entities/user.dart';
-import 'package:test_selection_app/domain/usecases/get_user_data.dart';
+
+import '../../../domain/entities/user.dart';
+import '../../../domain/usecases/get_user_data.dart';
 part 'user_list_state.dart';
 part 'user_list_event.dart';
 
@@ -25,7 +26,7 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     await getUserData(GetUserDataParam(page: 1)).then((value) => value.fold(
             (l) => emit(state.copyWith(
                 errorMessage: l.message, status: BlocStatus.failed)), (r) {
-                  maxPage = r.totalPages;
+          maxPage = r.totalPages;
           if (r.data.isEmpty) {
             emit(state.copyWith(users: [], status: BlocStatus.empty));
           } else {
@@ -39,22 +40,22 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
       FetchUserDataMore event, Emitter<UserListState> emit) async {
     emit(state.copyWith(status: BlocStatus.loadingMore));
     isLoadMore = true;
-    await getUserData(GetUserDataParam(page: currentPage)).then((value) => value
-            .fold(
-                (l) {
-                  isLoadMore = false;
-                  emit(state.copyWith(
-                    errorMessage: l.message,
-                    status: BlocStatus.failedMore));}, (r) {
-          if (r.page > r.totalPages) {
-            isLoadMore = false;
-            emit(state.copyWith(status: BlocStatus.empty));
-          } else {
-    currentPage++;
-            isLoadMore = false;
-            emit(state.copyWith(
-                users: [...state.users, ...r.data], status: BlocStatus.loaded));
-          }
-        }));
+    await getUserData(GetUserDataParam(page: currentPage))
+        .then((value) => value.fold((l) {
+              isLoadMore = false;
+              emit(state.copyWith(
+                  errorMessage: l.message, status: BlocStatus.failedMore));
+            }, (r) {
+              if (r.page > r.totalPages) {
+                isLoadMore = false;
+                emit(state.copyWith(status: BlocStatus.empty));
+              } else {
+                currentPage++;
+                isLoadMore = false;
+                emit(state.copyWith(
+                    users: [...state.users, ...r.data],
+                    status: BlocStatus.loaded));
+              }
+            }));
   }
 }

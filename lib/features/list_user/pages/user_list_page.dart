@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_selection_app/presentation/bloc/user_list_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:test_selection_app/features/list_user/bloc/user_list_bloc.dart';
 
 import '../widgets/widgets.dart';
 
@@ -13,6 +14,17 @@ class UserListPage extends StatefulWidget {
 
 class _UserListPageState extends State<UserListPage> {
   final ScrollController scrollController = ScrollController();
+
+  get _floatButtonAddUser => FloatingActionButton.extended(
+      onPressed: () => context
+          .pushNamed('create')
+          .then((value) => context.read<UserListBloc>().add(FetchUserData())),
+      label: const Row(
+        children: [
+          Icon(Icons.add),
+          Text('Create User'),
+        ],
+      ));
 
   @override
   void initState() {
@@ -32,6 +44,7 @@ class _UserListPageState extends State<UserListPage> {
   Widget build(BuildContext context) {
     final userBloc = context.watch<UserListBloc>();
     return Scaffold(
+      floatingActionButton: _floatButtonAddUser,
       body: RefreshIndicator(
         onRefresh: () async => userBloc.add(FetchUserData()),
         child: BlocBuilder<UserListBloc, UserListState>(

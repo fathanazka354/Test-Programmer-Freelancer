@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:test_selection_app/data/models/user_model.dart';
-import 'package:test_selection_app/domain/entities/pagination.dart';
+
+import '../../domain/entities/pagination.dart';
 
 class PaginationModel extends Equatable {
   final int page;

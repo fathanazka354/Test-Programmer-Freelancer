@@ -1,1 +1,1 @@
-const String BASE_URL = 'https://reqres.in/api';
+const String BASEURL = 'https://reqres.in/api';

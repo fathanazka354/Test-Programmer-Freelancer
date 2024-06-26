@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_selection_app/presentation/bloc/user_list_bloc.dart';
-import 'package:test_selection_app/presentation/widgets/widgets.dart';
+import 'package:test_selection_app/features/list_user/bloc/user_list_bloc.dart';
+import 'package:test_selection_app/features/list_user/widgets/widgets.dart';
 
 class SuccessSection extends StatelessWidget {
   const SuccessSection({
@@ -33,8 +33,6 @@ class SuccessSection extends StatelessWidget {
               ..isLoadMore = false,
           );
         } else {
-          print(
-              'object: ${userBloc.state.status == BlocStatus.failedMore} || ${userBloc.state.users.length} == $index || ${userBloc.isLoadMore}');
           final data = userBloc.state.users[index];
           return Card(
               child: Padding(
