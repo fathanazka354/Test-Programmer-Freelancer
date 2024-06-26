@@ -10,7 +10,6 @@ part 'create_user_event.dart';
 
 class CreateUserBloc extends Bloc<CreateUserEvent, CreateUserState> {
   final CreateUserData createUserData;
-  final key = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -19,7 +18,6 @@ class CreateUserBloc extends Bloc<CreateUserEvent, CreateUserState> {
   }
   FutureOr<void> _createUserData(
       CreateUserDataEvent event, Emitter<CreateUserState> emit) async {
-    if (key.currentState!.validate()) {
       emit(state.copyWith(status: BlocStatus.loading));
 
       await createUserData(CreateUserDataParam(
@@ -30,6 +28,5 @@ class CreateUserBloc extends Bloc<CreateUserEvent, CreateUserState> {
               (l) => emit(state.copyWith(
                   errorMessage: l.message, status: BlocStatus.failed)),
               (r) => emit(state.copyWith(user: r, status: BlocStatus.loaded))));
-    }
   }
 }

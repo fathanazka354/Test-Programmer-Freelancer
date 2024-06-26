@@ -15,6 +15,7 @@ class CreateUserState extends Equatable {
     return CreateUserState(
         user: CreateUser.empty(), status: BlocStatus.initial, errorMessage: '');
   }
+  
   CreateUserState copyWith({
     BlocStatus? status,
     CreateUser? user,

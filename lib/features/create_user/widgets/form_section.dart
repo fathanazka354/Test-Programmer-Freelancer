@@ -21,16 +21,19 @@ class FormSection extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           TextField(
             controller: controller,
             decoration: InputDecoration(
-              label: Text(label),
+              // label: Text(label),
+              border: const OutlineInputBorder(),
               hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey.shade400)
             ),
             keyboardType: keyboardType,
             onChanged: onChanged,

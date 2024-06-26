@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:test_selection_app/domain/usecases/get_user_data.dart';
 import 'package:test_selection_app/features/create_user/pages/create_page.dart';
 import 'package:test_selection_app/injection.dart' as di;
@@ -10,6 +11,8 @@ import 'package:test_selection_app/features/list_user/pages/user_list_page.dart'
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   di.init();
+    initializeDateFormatting('id_ID', null).then((_) => runApp(const MyApp()));
+
   runApp(const MyApp());
 }
 

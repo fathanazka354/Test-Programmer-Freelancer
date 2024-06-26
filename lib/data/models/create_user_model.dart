@@ -6,10 +6,12 @@ class CreateUserModel extends Equatable {
   final String email;
   final String firstName;
   final String lastName;
+  final String createdAt;
 
   const CreateUserModel(
       {required this.id,
       required this.email,
+      required this.createdAt,
       required this.firstName,
       required this.lastName});
 
@@ -17,6 +19,7 @@ class CreateUserModel extends Equatable {
       id: json['id'],
       email: json['email'],
       firstName: json['first_name'],
+      createdAt: json['createdAt'],
       lastName: json['last_name']);
 
   Map<String, dynamic> toJson() => {
@@ -24,12 +27,14 @@ class CreateUserModel extends Equatable {
         'email': email,
         'first_name': firstName,
         'last_name': lastName,
+        'createdAt': createdAt,
       };
 
   CreateUser toEntity() {
     return CreateUser(
         id: id,
         email: email,
+        createdAt: createdAt,
         firstName: firstName,
         lastName: lastName,);
   }
@@ -39,6 +44,7 @@ class CreateUserModel extends Equatable {
         id,
         email,
         firstName,
+        createdAt,
         lastName,
       ];
 }
